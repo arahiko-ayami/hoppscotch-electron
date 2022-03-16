@@ -9,7 +9,7 @@ jobs:
         with:
           node-version: 16
       - name: install dependencies
-        run: npm install
+        run: npm install && npm install -g pnpm
       - name: build
         run: npm run build
       - name: pack
@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 16
       - name: install dependencies
-        run: npm install
+        run: npm install && npm install -g pnpm
       - name: build
         run: npm run build
       - name: pack
@@ -37,7 +37,7 @@ jobs:
         with:
           node-version: 16
       - name: install dependencies
-        run: npm install
+        run: npm install && npm install -g pnpm
       - name: build
         run: npm run build
       - name: pack
