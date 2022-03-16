@@ -1,0 +1,23 @@
+{
+  "name": "hoppscotch-electron",
+  "version": "1.0.0",
+  "description": "Hoppscotch in electron",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "cd hoppscotch && pnpm i && pnpm generate",
+    "pack": "electron-builder build"
+  },
+  "build": {
+    "appId": "com.hoppscotch-electron.app"
+  },
+  "author": "arahiko-ayami",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "electron": "^17.1.2",
+    "electron-builder": "^22.14.13"
+  }
+}
