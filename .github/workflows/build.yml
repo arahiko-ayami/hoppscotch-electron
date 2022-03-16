@@ -11,7 +11,9 @@ jobs:
       - name: install dependencies
         run: npm install && npm install -g pnpm
       - name: build
-        run: npm run build
+        run: |
+          cd hoppscotch
+          npm run action-build
       - name: pack
         run: npm run pack
 
@@ -25,7 +27,9 @@ jobs:
       - name: install dependencies
         run: npm install && npm install -g pnpm
       - name: build
-        run: npm run build
+        run: |
+            cd hoppscotch
+            npm run action-build
       - name: pack
         run: npm run pack
 
@@ -39,6 +43,8 @@ jobs:
       - name: install dependencies
         run: npm install && npm install -g pnpm
       - name: build
-        run: npm run build
+        run: |
+          cd hoppscotch
+          npm run action-build
       - name: pack
         run: npm run pack

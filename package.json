@@ -6,6 +6,7 @@
   "scripts": {
     "start": "electron .",
     "build": "cd hoppscotch && pnpm i && pnpm generate",
+    "action-build": "pnpm i ** && pnpm generate",
     "pack": "electron-builder build"
   },
   "build": {
