@@ -1,11 +1,26 @@
-const { app, BrowserWindow, Notification } = require('electron')
+const { app, protocol, BrowserWindow, Notification } = require('electron')
 const path = require('path');
-const express = require('express');
-let port = 3000;
-const server = express();
+const url = require('url');
 let isFocused = true;
 
 const createWindow = () => {
+  const WEB_FOLDER = '/hoppscotch/packages/hoppscotch-app/dist';
+  const PROTOCOL = 'file';
+
+  protocol.interceptFileProtocol(PROTOCOL, (request, callback) => {
+    //Strip protocol
+    let url = request.url.substr(PROTOCOL.length + 1);
+
+    // Build complete path for node require function
+    url = path.join(__dirname, WEB_FOLDER, url);
+
+    // Replace backslashes by forward slashes (windows)
+    // url = url.replace(/\\/g, '/');
+    url = path.normalize(url);
+
+    callback({path: url});
+  });
+
   const win = new BrowserWindow({
     width: 1024,
     height: 720,
@@ -13,6 +28,8 @@ const createWindow = () => {
       nodeIntegrationInWorker: true
     }
   })
+
+  win.removeMenu()
 
   win.on('blur', () => {
     isFocused = false;
@@ -39,16 +56,13 @@ const createWindow = () => {
         win.focus()
       }
     })
-
-    server.use(express.static(__dirname + '/hoppscotch/packages/hoppscotch-app/dist'));
-    server.get('*', function (request, response) {
-      response.sendFile(path.resolve(__dirname, 'index.html'));
-    });
-
-    server.listen(port);
   }
 
-  win.loadURL(`http://localhost:${port}`)
+  win.loadURL(url.format({
+    pathname: 'index.html',
+    protocol: PROTOCOL + ':',
+    slashes: true
+  }));
 }
 
 function showNotification (title, body) {
